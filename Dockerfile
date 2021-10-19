@@ -2,6 +2,12 @@
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+#RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+#RUN apt-get install -y nodejs
+
+#COPY SSSM.Website/ClientApp/package*.json ./
 
 # Copy csproj and restore as distinct layers
 COPY SSSM.sln ./
@@ -11,7 +17,11 @@ COPY SSSM.Model/*.csproj ./SSSM.Model/
 COPY SSSM.Repositories/*.csproj ./SSSM.Repositories/
 COPY SSSM.Services/*.csproj ./SSSM.Services/
 COPY SSSM.WebAPI/*.csproj ./SSSM.WebAPI/
+#COPY SSSM.Website/*.csproj ./SSSM.Website/
 RUN dotnet restore -p:RestoreUseSkipNonexistentTargets=false
+
+#RUN npm install -g npm
+#RUN npm install
 
 # Copy everything else and build
 COPY . .
