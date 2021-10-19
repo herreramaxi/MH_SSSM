@@ -28,7 +28,7 @@ namespace SSSM.Repositories
             return _stockData.ContainsKey(stockSymbol) ? _stockData[stockSymbol] : null;
         }
 
-        public IList<CommonStock> GetAll()
+        public IList<CommonStock> GetAllStocks()
         {
             return _stockData.Values.ToList();
         }

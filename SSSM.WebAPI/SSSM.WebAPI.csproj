@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSSM.Api\SSSM.Api.csproj" />
+    <ProjectReference Include="..\SSSM.Repositories\SSSM.Repositories.csproj" />
+    <ProjectReference Include="..\SSSM.Services\SSSM.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>

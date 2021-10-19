@@ -6,13 +6,18 @@ using System.Linq;
 
 namespace SSSM.Services
 {
-    public class StockMarketService
+    public class StockMarketService : IStockMarketService
     {
         private readonly IStockMarketRepository _repository;
 
         public StockMarketService(IStockMarketRepository repository)
         {
             _repository = repository;
+        }
+
+        public IList<CommonStock> GetStocks()
+        {
+            return _repository.GetAllStocks();
         }
 
         public decimal GetDividendYieldFor(string stockSymbol, decimal price)
@@ -48,11 +53,12 @@ namespace SSSM.Services
             return denominator > 0 ? numerator / denominator : 0;
         }
 
-        public decimal GBCEAllShareIndex() {
-            IList<Trade> trades  = _repository.GetAllTrades();
+        public decimal GBCEAllShareIndex()
+        {
+            IList<Trade> trades = _repository.GetAllTrades();
 
             var pricesMultiplied = trades.Aggregate(1M, (accum, x) => accum * x.Price);
-            return (decimal)Math.Pow((double)pricesMultiplied, 1d /trades.Count);
+            return (decimal)Math.Pow((double)pricesMultiplied, 1d / trades.Count);
         }
 
         private static void ValidatePrice(decimal price)

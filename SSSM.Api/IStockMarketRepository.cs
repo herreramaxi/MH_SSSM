@@ -7,7 +7,7 @@ namespace SSSM.Api
     public interface IStockMarketRepository
     {
         CommonStock Get(string stockSymbol);
-        IList<CommonStock> GetAll();
+        IList<CommonStock> GetAllStocks();
         Trade RecordTrade(string stockSymbol, DateTime timeStamp, int quantityOfShares, TradeIndicator tradeIndicator, decimal price);
         IList<Trade> GetLatest15MinTrades(string stockSymbol, DateTime now);
         IList<Trade> GetAllTrades();
