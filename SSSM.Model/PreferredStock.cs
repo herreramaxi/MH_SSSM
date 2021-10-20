@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SSSM.Model
+﻿namespace SSSM.Model
 {
     public class PreferredStock : CommonStock
     {      
@@ -11,10 +9,8 @@ namespace SSSM.Model
         }   
         
         public override decimal DividendYield(decimal price)
-        {
-            if (price == 0) throw new ArgumentException("Price cannot be zero");
-          
-            return this.FixedDividend * this.ParValue / price;
+        {          
+            return price> 0 ? this.FixedDividend * this.ParValue / price: 0; ;
         }
     }
 }

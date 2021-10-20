@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.20" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SSSM.Api\SSSM.Api.csproj" />
     <ProjectReference Include="..\SSSM.Repositories\SSSM.Repositories.csproj" />
     <ProjectReference Include="..\SSSM.Services\SSSM.Services.csproj" />

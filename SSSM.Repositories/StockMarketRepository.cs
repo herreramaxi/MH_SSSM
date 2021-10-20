@@ -48,9 +48,12 @@ namespace SSSM.Repositories
 
         public Trade RecordTrade(string stockSymbol, DateTime timeStamp, int quantityOfShares, TradeIndicator tradeIndicator, decimal price)
         {
+            if (!_stockData.ContainsKey(stockSymbol)) throw new Exception($"Stock symbol not found: {stockSymbol}");
+
+            _stockData[stockSymbol].SetLatestPrice(price);
             var trade = new Trade(stockSymbol, timeStamp.ToUniversalTime(), quantityOfShares, tradeIndicator, price);
             _trades.Add(trade);
-
+            
             return trade;
         }
     }

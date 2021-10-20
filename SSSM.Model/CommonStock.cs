@@ -1,14 +1,13 @@
-﻿using System;
-
-namespace SSSM.Model
+﻿namespace SSSM.Model
 {
     public class CommonStock
     {
-        public string StockSymbol { get; set; }
+        public string StockSymbol { get; }
         public virtual StockType Type => StockType.Common;
-        public decimal LastDividend { get; set; }
-        public decimal ParValue { get; set; }
-        public decimal FixedDividend { get; set; }
+        public decimal LastDividend { get; }
+        public decimal ParValue { get; }
+        public decimal FixedDividend { get; protected set; }
+        public decimal LatestPrice { get; private set; }
 
         public CommonStock(string stockSymbol, decimal lastDividend, decimal parValue)
         {
@@ -19,13 +18,19 @@ namespace SSSM.Model
 
         public virtual decimal DividendYield(decimal price)
         {
-            if (price == 0) throw new ArgumentException("Price cannot be zero");
-            return this.LastDividend / price;
+            return price > 0 ? this.LastDividend / price : 0;
         }
 
         public decimal PERatio(decimal price)
         {
-            return price / this.DividendYield(price);
+            var dividend = this.DividendYield(price);
+
+            return price > 0 && dividend> 0 ? price / dividend: 0;
+        }
+
+        public void SetLatestPrice(decimal price)
+        {
+            this.LatestPrice = price;
         }
     }
 }

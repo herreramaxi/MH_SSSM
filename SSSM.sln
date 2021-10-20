@@ -16,6 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4FD3F4E0-5B9E-4500-B110-6B2AE18AC8FE}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		DockerReadme.txt = DockerReadme.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSSM.WebAPI", "SSSM.WebAPI\SSSM.WebAPI.csproj", "{82CA6E69-F5A2-4F2B-8DAF-F4D89EF28D18}"

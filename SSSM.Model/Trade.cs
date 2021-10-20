@@ -5,7 +5,7 @@ namespace SSSM.Model
     public class Trade
     {
         public string StockSymbol { get; }
-        public DateTime TimeStamp { get; }
+        public DateTime TimeStamp { get;  } 
         public int QuantityOfShares { get; }
         public TradeIndicator TradeIndicator { get; }
         public decimal Price { get; }

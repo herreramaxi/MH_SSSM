@@ -21,9 +21,9 @@ namespace SSSM.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IStockMarketRepository, StockMarketRepository>();
-            services.AddScoped<IStockMarketService, StockMarketService>();
-            services.AddControllers();
+            services.AddSingleton<IStockMarketRepository, StockMarketRepository>();
+            services.AddSingleton<IStockMarketService, StockMarketService>();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

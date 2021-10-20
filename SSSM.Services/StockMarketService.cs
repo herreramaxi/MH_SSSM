@@ -20,6 +20,26 @@ namespace SSSM.Services
             return _repository.GetAllStocks();
         }
 
+        public CommonStock GetStock(string stockSymbol)
+        {
+            var stock = _repository.Get(stockSymbol);
+            if (stock == null) throw new Exception($"Stock symbol not found: {stockSymbol}");
+            return stock;
+        }
+
+        public StockCalculations GetStockCalculations(string stockSymbol)
+        {
+            var stock = GetStock(stockSymbol);
+
+            var stockCalculations = new StockCalculations();
+            stockCalculations.LatestPrice = stock.LatestPrice;
+            stockCalculations.DividendYield = stock.DividendYield(stock.LatestPrice);
+            stockCalculations.PERatio = stock.PERatio(stock.LatestPrice);
+            stockCalculations.VolumeWeightedStockPrice = this.GetVolumeWeightedStockPrice(stockSymbol);
+            stockCalculations.GBCEAllShareIndex = this.GBCEAllShareIndex();
+
+            return stockCalculations;
+        }
         public decimal GetDividendYieldFor(string stockSymbol, decimal price)
         {
             ValidatePrice(price);
@@ -56,6 +76,7 @@ namespace SSSM.Services
         public decimal GBCEAllShareIndex()
         {
             IList<Trade> trades = _repository.GetAllTrades();
+            if (!trades.Any()) return 0;
 
             var pricesMultiplied = trades.Aggregate(1M, (accum, x) => accum * x.Price);
             return (decimal)Math.Pow((double)pricesMultiplied, 1d / trades.Count);
@@ -64,13 +85,6 @@ namespace SSSM.Services
         private static void ValidatePrice(decimal price)
         {
             if (price <= 0) throw new ArgumentException("Price cannot be less or equal to zero");
-        }
-
-        private CommonStock GetStock(string stockSymbol)
-        {
-            var stock = _repository.Get(stockSymbol);
-            if (stock == null) throw new Exception($"Stock symbol not found: {stockSymbol}");
-            return stock;
         }
     }
 }
