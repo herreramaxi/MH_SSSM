@@ -9,7 +9,8 @@ namespace SSSM.Api
         CommonStock Get(string stockSymbol);
         IList<CommonStock> GetAllStocks();
         Trade RecordTrade(string stockSymbol, DateTime timeStamp, int quantityOfShares, TradeIndicator tradeIndicator, decimal price);
-        IList<Trade> GetLatest15MinTrades(string stockSymbol, DateTime now);
+        IList<Trade> GetLast15MinTrades(string stockSymbol, DateTime now);
         IList<Trade> GetAllTrades();
+        void ClearOnMemoryData();
     }
 }

@@ -2,7 +2,7 @@
 {
     public class PreferredStock : CommonStock
     {      
-        public override StockType Type => StockType.Preferred;
+        public override StockType StockType => StockType.Preferred;
         public PreferredStock(string stockSymbol, decimal lastDividend, decimal fixedDividend, decimal parValue): base(stockSymbol, lastDividend,parValue)
         {
             this.FixedDividend = fixedDividend;

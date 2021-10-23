@@ -2,7 +2,7 @@
 {
     public enum StockType
     {
-        Common =0,
+        Common = 0,
         Preferred = 1
     }
 }

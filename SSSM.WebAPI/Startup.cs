@@ -3,17 +3,22 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using SSSM.Api;
 using SSSM.Repositories;
 using SSSM.Services;
+using System;
 
 namespace SSSM.WebAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IWebHostEnvironment CurrentEnvironment { get; set; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            CurrentEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -21,9 +26,41 @@ namespace SSSM.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        if (CurrentEnvironment.IsDevelopment())
+                        {
+                            builder.AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowAnyOrigin();
+                        }
+                        else
+                        {
+                            var uiEndpoint = Environment.GetEnvironmentVariable("UI_ENDPOINT");
+
+                            if (string.IsNullOrEmpty(uiEndpoint))
+                            {
+                                throw new Exception("Environment variable not found: UI_ENDPOINT");
+                            }
+
+                            builder.WithOrigins(uiEndpoint)
+                                   .AllowAnyHeader()
+                                   .AllowAnyMethod();
+                        }
+                    });
+            });
+
             services.AddSingleton<IStockMarketRepository, StockMarketRepository>();
             services.AddSingleton<IStockMarketService, StockMarketService>();
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers(x => x.Filters.Add<ExceptionFilter>())
+                .AddNewtonsoftJson((x) =>
+                {
+                    x.SerializerSettings.Converters.Add(new DateFormatConverter("yyyy-MM-dd HH:mm:ss"));
+                }
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,16 +71,8 @@ namespace SSSM.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            // global cors policy
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                //.AllowCredentials()
-                );
-
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

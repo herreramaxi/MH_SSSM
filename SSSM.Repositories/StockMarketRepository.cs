@@ -9,8 +9,8 @@ namespace SSSM.Repositories
     public class StockMarketRepository : IStockMarketRepository
     {
         private static Dictionary<string, CommonStock> _stockData;
-        private readonly List<Trade> _trades = new List<Trade>();
-
+        private readonly List<Trade> _trades = new List<Trade>();  
+        
         public StockMarketRepository()
         {
             _stockData = new Dictionary<string, CommonStock>
@@ -38,10 +38,10 @@ namespace SSSM.Repositories
             return _trades;
         }
 
-        public IList<Trade> GetLatest15MinTrades(string stockSymbol, DateTime now)
+        public IList<Trade> GetLast15MinTrades(string stockSymbol, DateTime now)
         {
             var nowAsUtc = now.ToUniversalTime();
-            return _trades.Where(x => x.StockSymbol.Equals(stockSymbol, StringComparison.InvariantCultureIgnoreCase) &&
+            return _trades.Where(x => (string.IsNullOrEmpty(stockSymbol) || x.StockSymbol.Equals(stockSymbol, StringComparison.InvariantCultureIgnoreCase)) &&
                                       nowAsUtc > x.TimeStamp &&
                                       x.TimeStamp.AddMinutes(15) >= nowAsUtc).ToList();
         }
@@ -50,11 +50,21 @@ namespace SSSM.Repositories
         {
             if (!_stockData.ContainsKey(stockSymbol)) throw new Exception($"Stock symbol not found: {stockSymbol}");
 
-            _stockData[stockSymbol].SetLatestPrice(price);
+            _stockData[stockSymbol].LastPrice = price;
             var trade = new Trade(stockSymbol, timeStamp.ToUniversalTime(), quantityOfShares, tradeIndicator, price);
+
+            //There is not ORM in here, so I am generating the id manually which is necessary for UI
+            trade.Id = _trades.Any() ? _trades.Max(x => x.Id) + 1 : 1;
+
             _trades.Add(trade);
-            
+
             return trade;
+        }
+
+        public void ClearOnMemoryData()
+        {
+            _stockData.Values.ToList().ForEach(x => x.LastPrice = 0);
+            _trades.Clear();
         }
     }
 }

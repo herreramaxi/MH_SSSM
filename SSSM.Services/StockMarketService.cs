@@ -31,31 +31,18 @@ namespace SSSM.Services
         {
             var stock = GetStock(stockSymbol);
 
-            var stockCalculations = new StockCalculations();
-            stockCalculations.LatestPrice = stock.LatestPrice;
-            stockCalculations.DividendYield = stock.DividendYield(stock.LatestPrice);
-            stockCalculations.PERatio = stock.PERatio(stock.LatestPrice);
+            var stockCalculations = new StockCalculations(stock);
             stockCalculations.VolumeWeightedStockPrice = this.GetVolumeWeightedStockPrice(stockSymbol);
             stockCalculations.GBCEAllShareIndex = this.GBCEAllShareIndex();
 
             return stockCalculations;
         }
-        public decimal GetDividendYieldFor(string stockSymbol, decimal price)
+
+        public IList<Trade> GetTrades()
         {
-            ValidatePrice(price);
-            var stock = GetStock(stockSymbol);
-
-            return stock.DividendYield(price);
+            return _repository.GetAllTrades();
         }
-
-        public decimal GetPERatioFor(string stockSymbol, decimal price)
-        {
-            ValidatePrice(price);
-            var stock = GetStock(stockSymbol);
-
-            return stock.PERatio(price);
-        }
-
+             
         public Trade RecordTrade(string stockSymbol, DateTime timeStamp, int quantityOfShares, TradeIndicator tradeIndicator, decimal price)
         {
             ValidatePrice(price);
@@ -63,23 +50,69 @@ namespace SSSM.Services
             return _repository.RecordTrade(stockSymbol, timeStamp, quantityOfShares, tradeIndicator, price);
         }
 
-        public decimal GetVolumeWeightedStockPrice(string stockSymbol, DateTime? now = null)
+        public decimal GetDividendYield(string stockSymbol, decimal price)
         {
-            var tradesLast15Min = _repository.GetLatest15MinTrades(stockSymbol, now ?? DateTime.Now);
+            ValidatePrice(price);
 
-            var numerator = tradesLast15Min.Sum(x => x.Price * x.QuantityOfShares);
-            var denominator = tradesLast15Min.Sum(y => y.QuantityOfShares);
-
-            return denominator > 0 ? numerator / denominator : 0;
+            return GetStock(stockSymbol).DividendYield(price);
         }
 
-        public decimal GBCEAllShareIndex()
+        public decimal GetPERatioFor(string stockSymbol, decimal price)
         {
-            IList<Trade> trades = _repository.GetAllTrades();
+            ValidatePrice(price);
+
+            return GetStock(stockSymbol).PERatio(price);
+        }
+
+        public decimal GetVolumeWeightedStockPrice(string stockSymbol, DateTime? now = null)
+        {
+            var tradesLast15Min = _repository.GetLast15MinTrades(stockSymbol, now ?? DateTime.Now);
+            if (!tradesLast15Min.Any()) return 0;
+
+            var priceXQuantity = 0M;
+            var quantity = 0M;
+
+            foreach (var trade in tradesLast15Min)
+            {
+                priceXQuantity += trade.Price * trade.QuantityOfShares;
+                quantity += trade.QuantityOfShares;
+            }
+
+            return priceXQuantity / quantity;
+        }
+
+        public decimal GBCEAllShareIndex(DateTime? now = null)
+        {
+            var trades = _repository.GetLast15MinTrades(null, now??DateTime.Now);
             if (!trades.Any()) return 0;
 
-            var pricesMultiplied = trades.Aggregate(1M, (accum, x) => accum * x.Price);
-            return (decimal)Math.Pow((double)pricesMultiplied, 1d / trades.Count);
+            var priceXQuantityByStock = new Dictionary<string, decimal>();
+            var quantityByStock = new Dictionary<string, decimal>();
+
+            foreach (var trade in trades)
+            {
+                if (!priceXQuantityByStock.ContainsKey(trade.StockSymbol))
+                {
+                    priceXQuantityByStock[trade.StockSymbol] = 0;
+                    quantityByStock[trade.StockSymbol] = 0;
+                }
+
+                priceXQuantityByStock[trade.StockSymbol] += trade.Price * trade.QuantityOfShares;
+                quantityByStock[trade.StockSymbol] += trade.QuantityOfShares;
+            }
+
+            var price = 1M;
+            foreach (var stockSymbol in priceXQuantityByStock.Keys)
+            {
+                price *= priceXQuantityByStock[stockSymbol] / quantityByStock[stockSymbol];
+            }
+
+            return (decimal)Math.Pow((double)price, 1d / priceXQuantityByStock.Count);
+        }
+
+        public void ClearOnMemoryData()
+        {
+            _repository.ClearOnMemoryData();
         }
 
         private static void ValidatePrice(decimal price)
