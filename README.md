@@ -4,7 +4,7 @@
 
 - [Requirements](#Requirements)
 - [Solution](#Solution)
-- [Assumptions](#Assumptions)
+- [Assumptions and considerations](#Assumptions-and-considerations)
 - [Running the solution in the cloud](#Running-the-solution-in-the-cloud)
 - [How to run the test cases](#How-to-run-the-test-cases)
 - [Test cases](#Test-cases)
