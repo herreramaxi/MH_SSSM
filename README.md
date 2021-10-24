@@ -24,12 +24,17 @@ My proposal solution is a distributed cloud application composed by two nodes, o
  * To provide its calculation services to frontend node through its Web API. 
  * To validates the calculations required by a NUnit test project.
 
-### Assumptions
+### Assumptions and considerations
 * Last price: Rather than sending the price and stock symbol to calculate “dividend yield” and “P/E Ratio”, the application requires at least to perfrom one trade for a given stock. This is because the last trade’s price is taken as a last price.
 * P/E Ratio: As the formula does not specify if the “Dividend” on its denominator is the “Last Dividend” or “Dividend Yield”. I assumed that the correct approach would be to use the “Last dividend” so that the resulting formula would be: DY = Price/Last Dividend.
 * GBCE All Share Index: I followed same approach as “Volume Weighted Stock Price” so that the index is based on trades in past 15 minutes to limit the volume of data.
 To calculate the stock price, which is used on geometric mean, I am applying the "Volume Weighted Stock Price" for the selected stock. After that, the geometric mean is applied for every stock price previously calculated.
-
+* Backend language: c#.
+* Frontend: React.
+* Error handling backend: global filter exception with Log4Net, which can be read with heroku [ExceptionFilter.cs](https://github.com/herreramaxi/MH_SSSM/blob/c0c66b215ac52b4b1c5acaf50e089ce6b9f1d04a/SSSM.WebAPI/Infrastructure/ExceptionFilter.cs)
+* HTTPS enabled in both nodes but no redirect is forced.
+* There is no authentication flow between frontend and backend endpoints, this is a pending.
+* CORS is enabled on backend.
 
 ## Running the solution in the cloud
 *Web app -->* [https://mh-sssm-ui.herokuapp.com](https://mh-sssm-ui.herokuapp.com)
@@ -112,8 +117,13 @@ NB: If you need to change web api port you would have to change two settings so 
 #### Component dependencies, backend - Web API
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Component%20dependencies.png" width="400" height="300">
 
-### UI repository
-[MH_SSSM_UI](https://github.com/herreramaxi/MH_SSSM_UI) 
+#### Endpoints
+* [Backend](https://mh-sssm.herokuapp.com/)
+* [UI](https://mh-sssm-ui.herokuapp.com/)
+
+### Github repositories
+* [MH_SSSM_UI](https://github.com/herreramaxi/MH_SSSM_UI) 
+* [MH_SSSM](https://github.com/herreramaxi/MH_SSSM) 
 
 ### Stack
 - ##### Backend
