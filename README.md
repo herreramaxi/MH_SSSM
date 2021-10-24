@@ -14,7 +14,8 @@
   * [Backend - Web API](#backend---Web-API)
   * [UI](#UI)
 - [Architecture](#Architecture)
-- [UI repository](#UI-repository)
+- [Nodes urls](#Nodes urls)
+- [Github repositories](#Github-repositories)
 - [Stack](#Stack)
 
 ## Requirements
@@ -122,7 +123,7 @@ NB: If you need to change web api port you would have to change two settings so 
 #### Component dependencies, backend - Web API
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Component%20dependencies.png" width="400" height="300">
 
-#### Endpoints
+#### Nodes urls
 * [Backend](https://mh-sssm.herokuapp.com/)
 * [UI](https://mh-sssm-ui.herokuapp.com/)
 
