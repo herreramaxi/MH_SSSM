@@ -1,7 +1,29 @@
 # Super Simple Stock Market by Maxi Herrera
 
-### Web app on the cloud
-[https://mh-sssm-ui.herokuapp.com](https://mh-sssm-ui.herokuapp.com)
+[Requirements.md](https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Requirements.md)
+
+## Solution
+My proposal solution is a distributed cloud application composed by two nodes, one for the UI and the other for the backend. The frontend node is the customer facing UI implemented with React as a single page application (SPA). The second node is the backend, which has two critical missions: 
+ * To provide its calculation services to frontend node through its Web API. 
+ * To validates the calculations required by a NUnit test project.
+
+### Assumptions
+* Last price: Rather than sending the price and stock symbol to calculate “dividend yield” and “P/E Ratio”, the application requires at least to perfrom one trade for a given stock. This is because the last trade’s price is taken as a last price.
+* P/E Ratio: As the formula does not specify if the “Dividend” on its denominator is the “Last Dividend” or “Dividend Yield”. I assumed that the correct approach would be to use the “Last dividend” so that the resulting formula would be: DY = Price/Last Dividend.
+* GBCE All Share Index: I followed same approach as “Volume Weighted Stock Price” so that the index is based on trades in past 15 minutes to limit the volume of data.
+To calculate the stock price, which is used on geometric mean, I am applying the "Volume Weighted Stock Price" for the selected stock. After that, the geometric mean is applied for every stock price previously calculated.
+
+### Running the app
+*Web app -->* [https://mh-sssm-ui.herokuapp.com](https://mh-sssm-ui.herokuapp.com)
+
+1. Navigate to the above web app.
+2. Selects a stock symbol from list provided.
+3. Perform a trade which requires the following fields: price, quantity of shares and trade indicator.
+
+Expected results:
+* The right panel will show calculations for the last price, which was traded, and the selected stock symbol.
+* The left graphic panel will display the last price together with previous prices from trades.
+* The table located on the botton of the page will display the last trade together with previous trades.
 
 ### How to run the test cases
 1. Download or clone repository
@@ -18,7 +40,7 @@
 ### Architecture
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Architecture.png" width="900" height="300">
 
-### Assumptions
+### How to run the solution locally
 
 ### UI repository
 [MH_SSSM_UI](https://github.com/herreramaxi/MH_SSSM_UI) 
