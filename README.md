@@ -41,10 +41,34 @@ To calculate the stock price, which is used on geometric mean, I am applying the
  - [GetVolumeWeightedStockPriceUnitTests.cs](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.Test/GetVolumeWeightedStockPriceUnitTests.cs)
  - [GBCEAllShareIndexUnitTests.cs](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.Test/GBCEAllShareIndexUnitTests.cs)
 
+### How to run the solution locally
+
+#### Backend - Web API
+1. Download zip file from [MH_SSSM-main.zip](https://github.com/herreramaxi/MH_SSSM/archive/refs/heads/main.zip) or download/clone repository from [MH_SSSM](https://github.com/herreramaxi/MH_SSSM)
+2. Open folder MH_SSSM-main
+3. Open solution SSSM.sln with Visual Studio 2019 or above.
+4. Select as defaul the project: SSSM.WebAPI
+5. Press run or F5
+
+##### Expected result
+The web API will run on [http://localhost:60485](http://localhost:60485), which is configured on [launchSettings.json#L6](https://github.com/herreramaxi/MH_SSSM/blob/f1dad3506adf80df8227a59cd79cb4ec52909a73/SSSM.WebAPI/Properties/launchSettings.json#L6)
+
+NB: If you need to change web api port you would have to change two settings so that ui and backend can communicate:
+* Backend: [launchSettings.json#L6](https://github.com/herreramaxi/MH_SSSM/blob/f1dad3506adf80df8227a59cd79cb4ec52909a73/SSSM.WebAPI/Properties/launchSettings.json#L6)
+* UI: [.env#L2](https://github.com/herreramaxi/MH_SSSM_UI/blob/8923a58ed8ec00b35bba996ceaf61eb1ad272cb9/.env#L2)
+
+#### UI
+1. Download zip file from [MH_SSSM_UI-main.zip](https://github.com/herreramaxi/MH_SSSM_UI/archive/refs/heads/main.zip) or download/clone repository from [MH_SSSM_UI](https://github.com/herreramaxi/MH_SSSM_UI)
+2. Open folder MH_SSSM_UI-main (where package.json is located)
+3. npm install
+4. npm run start
+
+##### Expected result
+* The web app will run on [http://localhost:3000](http://localhost:3000), which is the standard for React apps.
+* UI will load and display the [Dashboard](https://github.com/herreramaxi/MH_SSSM/#dashboard)
+
 ### Architecture
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Architecture.png" width="900" height="300">
-
-### How to run the solution locally
 
 ### UI repository
 [MH_SSSM_UI](https://github.com/herreramaxi/MH_SSSM_UI) 
