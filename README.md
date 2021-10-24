@@ -1,4 +1,7 @@
 # Super Simple Stock Market by Maxi Herrera
+
+### Index
+
 - [Requirements](#Requirements)
 - [Solution](#Solution)
 - [Assumptions](#Assumptions)
@@ -81,7 +84,11 @@ NB: If you need to change web api port you would have to change two settings so 
 * UI will load and display the [Dashboard](#dashboard)
 
 ### Architecture
+#### Could
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Architecture.png" width="900" height="300">
+
+#### Component dependencies, backend - Web API
+<img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Component%20dependencies.png" width="400" height="300">
 
 ### UI repository
 [MH_SSSM_UI](https://github.com/herreramaxi/MH_SSSM_UI) 
