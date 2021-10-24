@@ -6,6 +6,7 @@
 - [Solution](#Solution)
 - [Assumptions and considerations](#Assumptions-and-considerations)
 - [Running the solution in the cloud](#Running-the-solution-in-the-cloud)
+- [How to clean in-memory data](#How-to-clean-in-memory-data)
 - [How to run the test cases](#How-to-run-the-test-cases)
 - [Test cases](#Test-cases)
 - [Calculations](#Calculations)
@@ -50,6 +51,10 @@ To calculate the stock price, which is used on geometric mean, I am applying the
 * The table located on the botton of the page will display the last trade together with previous trades.
 ##### Dashboard
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/DashboardWIthAnnotations.png" alt="DashboardWIthAnnotations" width="400" height="300">
+
+## How to clean in-memory data
+For testing purpose it is possible to clean/delete all the in-memory data, which includes trades and last prices.
+On the top right corner, clicks on "delete icon" and confirm the operation in dialog.
 
 ## How to run the test cases
 1. Download or clone repository
