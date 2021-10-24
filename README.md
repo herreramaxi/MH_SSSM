@@ -16,19 +16,23 @@ To calculate the stock price, which is used on geometric mean, I am applying the
 ### Running the app
 *Web app -->* [https://mh-sssm-ui.herokuapp.com](https://mh-sssm-ui.herokuapp.com)
 
+##### Steps
 1. Navigate to the above web app.
 2. Selects a stock symbol from list provided.
 3. Perform a trade which requires the following fields: price, quantity of shares and trade indicator.
 
-Expected results:
+##### Expected results
 * The right panel will show calculations for the last price, which was traded, and the selected stock symbol.
 * The left graphic panel will display the last price together with previous prices from trades.
 * The table located on the botton of the page will display the last trade together with previous trades.
+##### Dashboard
+<img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/DashboardWIthAnnotations.png" alt="DashboardWIthAnnotations" width="400" height="300">
 
 ### How to run the test cases
 1. Download or clone repository
 2. Open the Visual Studio solution [SSSM.sln](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.sln) (NB: I used VS 2019)
 3. Click on "Test/Run All Tests"
+
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/TestsRunAll.JPG" alt="TestsRunAll" width="600" height="180">
 
 ### Test cases
