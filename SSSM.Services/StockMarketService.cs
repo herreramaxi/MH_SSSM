@@ -2,7 +2,6 @@
 using SSSM.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SSSM.Services
 {
@@ -42,7 +41,7 @@ namespace SSSM.Services
         {
             return _repository.GetAllTrades();
         }
-             
+
         public Trade RecordTrade(string stockSymbol, DateTime timeStamp, int quantityOfShares, TradeIndicator tradeIndicator, decimal price)
         {
             ValidatePrice(price);
@@ -67,8 +66,6 @@ namespace SSSM.Services
         public decimal GetVolumeWeightedStockPrice(string stockSymbol, DateTime? now = null)
         {
             var tradesLast15Min = _repository.GetLast15MinTrades(stockSymbol, now ?? DateTime.Now);
-            if (!tradesLast15Min.Any()) return 0;
-
             var priceXQuantity = 0M;
             var quantity = 0M;
 
@@ -78,14 +75,12 @@ namespace SSSM.Services
                 quantity += trade.QuantityOfShares;
             }
 
-            return priceXQuantity / quantity;
+            return quantity > 0 ? priceXQuantity / quantity : 0;
         }
 
         public decimal GBCEAllShareIndex(DateTime? now = null)
         {
-            var trades = _repository.GetLast15MinTrades(null, now??DateTime.Now);
-            if (!trades.Any()) return 0;
-
+            var trades = _repository.GetLast15MinTrades(null, now ?? DateTime.Now);
             var priceXQuantityByStock = new Dictionary<string, decimal>();
             var quantityByStock = new Dictionary<string, decimal>();
 
@@ -107,7 +102,7 @@ namespace SSSM.Services
                 price *= priceXQuantityByStock[stockSymbol] / quantityByStock[stockSymbol];
             }
 
-            return (decimal)Math.Pow((double)price, 1d / priceXQuantityByStock.Count);
+            return priceXQuantityByStock.Count > 0 ? (decimal)Math.Pow((double)price, 1d / priceXQuantityByStock.Count) : 0;
         }
 
         public void ClearOnMemoryData()
