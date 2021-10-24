@@ -6,7 +6,7 @@
 - [How to run the test cases](#How-to-run-the-test-cases)
 - [Test cases](#Test-cases)
 - [How to run the solution locally](#How-to-run-the-solution-locally)
-  * [Backend - Web API](#Backend---Web API)
+  * [Backend - Web API](#backend---Web-API)
   * [UI](#UI)
 - [Architecture](#Architecture)
 - [UI repository](#UI-repository)
