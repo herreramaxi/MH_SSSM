@@ -30,7 +30,8 @@ My proposal solution is a distributed cloud application composed by two nodes, o
 * GBCE All Share Index: I followed same approach as “Volume Weighted Stock Price” so that the index is based on trades in past 15 minutes to limit the volume of data.
 To calculate the stock price, which is used on geometric mean, I am applying the "Volume Weighted Stock Price" for the selected stock. After that, the geometric mean is applied for every stock price previously calculated.
 
-### Running the solution in the cloud
+
+## Running the solution in the cloud
 *Web app -->* [https://mh-sssm-ui.herokuapp.com](https://mh-sssm-ui.herokuapp.com)
 
 ##### Steps
@@ -45,7 +46,7 @@ To calculate the stock price, which is used on geometric mean, I am applying the
 ##### Dashboard
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/DashboardWIthAnnotations.png" alt="DashboardWIthAnnotations" width="400" height="300">
 
-### How to run the test cases
+## How to run the test cases
 1. Download or clone repository
 2. Open the Visual Studio solution [SSSM.sln](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.sln) (NB: I used VS 2019)
 3. Click on "Test/Run All Tests"
@@ -58,7 +59,7 @@ To calculate the stock price, which is used on geometric mean, I am applying the
  - [GetVolumeWeightedStockPriceUnitTests.cs](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.Test/GetVolumeWeightedStockPriceUnitTests.cs)
  - [GBCEAllShareIndexUnitTests.cs](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.Test/GBCEAllShareIndexUnitTests.cs)
 
-### Calculations
+## Calculations
 
 * #### Dividend yield
 
@@ -78,7 +79,7 @@ To calculate the stock price, which is used on geometric mean, I am applying the
 
   - [StockMarketService.cs#L81](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Services/StockMarketService.cs#L81)
 
-### How to run the solution locally
+## How to run the solution locally
 
 #### Backend - Web API
 1. Download zip file from [MH_SSSM-main.zip](https://github.com/herreramaxi/MH_SSSM/archive/refs/heads/main.zip) or download/clone repository from [MH_SSSM](https://github.com/herreramaxi/MH_SSSM)
@@ -104,7 +105,7 @@ NB: If you need to change web api port you would have to change two settings so 
 * The web app will run on [http://localhost:3000](http://localhost:3000), which is the standard for React apps.
 * UI will load and display the [Dashboard](#dashboard)
 
-### Architecture
+## Architecture
 #### Could
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Architecture.png" width="900" height="300">
 
