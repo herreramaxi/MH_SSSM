@@ -8,6 +8,7 @@
 - [Running the solution in the cloud](#Running-the-solution-in-the-cloud)
 - [How to run the test cases](#How-to-run-the-test-cases)
 - [Test cases](#Test-cases)
+- [Calculations](#Calculations)
 - [How to run the solution locally](#How-to-run-the-solution-locally)
   * [Backend - Web API](#backend---Web-API)
   * [UI](#UI)
@@ -56,6 +57,26 @@ To calculate the stock price, which is used on geometric mean, I am applying the
  - [PERatioUnitTests.cs](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.Test/PERatioUnitTests.cs)
  - [GetVolumeWeightedStockPriceUnitTests.cs](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.Test/GetVolumeWeightedStockPriceUnitTests.cs)
  - [GBCEAllShareIndexUnitTests.cs](https://github.com/herreramaxi/MH_SSSM/blob/main/SSSM.Test/GBCEAllShareIndexUnitTests.cs)
+
+### Calculations
+
+* #### Dividend yield
+
+  - [StockMarketService.cs#L52](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Services/StockMarketService.cs#L52)
+  - [CommonStock.cs#L22](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Model/CommonStock.cs#L22)
+  - [PreferredStock.cs#L11](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Model/PreferredStock.cs#L11)
+
+* #### P/E Ratio
+  - [StockMarketService.cs#L59](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Services/StockMarketService.cs#L59)
+  - [CommonStock.cs#L27](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Model/CommonStock.cs#L27)
+
+* #### Volume Weighted Stock Price based on trades in past 15 minutes
+
+  - [StockMarketService.cs#L66](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Services/StockMarketService.cs#L66)
+
+* #### GBCE All Share Index
+
+  - [StockMarketService.cs#L81](https://github.com/herreramaxi/MH_SSSM/blob/fa0ff755d90efb997d60437d8ae79a2a7036cf99/SSSM.Services/StockMarketService.cs#L81)
 
 ### How to run the solution locally
 
