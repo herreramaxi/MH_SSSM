@@ -2,7 +2,7 @@
 - [Requirements](#Requirements)
 - [Solution](#Solution)
 - [Assumptions](#Assumptions)
-- [Running the solution from cloud](#Running-the-solution-from-cloud)
+- [Running the solution in the cloud](#Running-the-solution-in-the-cloud)
 - [How to run the test cases](#How-to-run-the-test-cases)
 - [Test cases](#Test-cases)
 - [How to run the solution locally](#How-to-run-the-solution-locally)
@@ -26,7 +26,7 @@ My proposal solution is a distributed cloud application composed by two nodes, o
 * GBCE All Share Index: I followed same approach as “Volume Weighted Stock Price” so that the index is based on trades in past 15 minutes to limit the volume of data.
 To calculate the stock price, which is used on geometric mean, I am applying the "Volume Weighted Stock Price" for the selected stock. After that, the geometric mean is applied for every stock price previously calculated.
 
-### Running the solution from cloud
+### Running the solution in the cloud
 *Web app -->* [https://mh-sssm-ui.herokuapp.com](https://mh-sssm-ui.herokuapp.com)
 
 ##### Steps
