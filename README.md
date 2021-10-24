@@ -78,7 +78,7 @@ NB: If you need to change web api port you would have to change two settings so 
 
 ##### Expected result
 * The web app will run on [http://localhost:3000](http://localhost:3000), which is the standard for React apps.
-* UI will load and display the [Dashboard](https://github.com/herreramaxi/MH_SSSM/#dashboard)
+* UI will load and display the [Dashboard](#dashboard)
 
 ### Architecture
 <img src="https://github.com/herreramaxi/MH_SSSM/blob/main/resources/Architecture.png" width="900" height="300">
